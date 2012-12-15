@@ -5,10 +5,13 @@
 package relativity.math;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import static relativity.math.Constants.c;
+import relativity.util.FourMatrix;
 import relativity.util.FourVector;
+import relativity.util.Unit;
 
 /**
  *
@@ -43,8 +46,20 @@ public class FourVelocityTest {
     public void testAdditionCommutativity() {
         FourVector a = FourVelocity.fourVelocity(c.getValue()*.9, 0, 0);
         FourVector b = FourVelocity.fourVelocity(c.getValue()*.3, 5*u, 0);
+        FourVector d = FourVelocity.fourVelocity(c.getValue()*.5, 0, 0);
         
-        assertEquals(FourVelocity.add(a,b), FourVelocity.add(b,a));
+        assertNotSame(FourVelocity.add(a,b), FourVelocity.add(b,a));
+        assertEquals(FourVelocity.add(a,d), FourVelocity.add(d,a));
     }
     
+    @Test 
+    public void testLorentzInvertable() {
+        FourVector a = FourVelocity.fourVelocity(c.getValue()*.3, 5*u, 0);
+        FourVector b = a.threeNegate();
+        
+        FourMatrix lA = FourVelocity.lorentzTransform(a);
+        FourMatrix lB = FourVelocity.lorentzTransform(b);
+        
+        assertEquals(FourMatrix.multiply(lA, lB), FourMatrix.diagonal(1, 1, 1, 1, Unit.none));
+    }
 }

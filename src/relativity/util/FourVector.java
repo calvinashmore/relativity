@@ -91,11 +91,9 @@ public class FourVector {
             return false;
         }
         final FourVector other = (FourVector) obj;
-        double threshold = 
-                Math.abs(this.v[0]-other.v[0]) + 
-                Math.abs(this.v[1]-other.v[1]) +
-                Math.abs(this.v[2]-other.v[2]) +
-                Math.abs(this.v[3]-other.v[3]);
+        double threshold = 0;
+        for(int i=0;i<v.length; i++)
+            threshold += Math.abs(this.v[i]-other.v[i]);
         if(threshold >= EPSILON)
             return false;
 

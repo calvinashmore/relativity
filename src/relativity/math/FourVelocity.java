@@ -29,19 +29,19 @@ public class FourVelocity {
         validate(a);
         validate(b);
         
-        FourMatrix invAFrame = lorentzTransform(a.threeNegate());
-        return FourMatrix.multiply(invAFrame, b);
+//        FourMatrix invAFrame = lorentzTransform(a.threeNegate());
+//        return FourMatrix.multiply(invAFrame, b);
         
-        //        double g = gamma(a).getValue();
-        //        double dot = FourVector.threeDot(a, b).getValue();
-        //        double c2 = c.getValue()*c.getValue();
-        //
-        //        double A = 1/(1+dot/c2);
-        //        double B = 1+(g*dot)/(c2*(1+g));
-        //        return fourVelocity(
-        //                A*(B*a.getV1()+b.getV1()/g),
-        //                A*(B*a.getV2()+b.getV2()/g),
-        //                A*(B*a.getV3()+b.getV3()/g));
+        double g = gamma(a).getValue();
+        double dot = FourVector.threeDot(a, b).getValue();
+        double c2 = c.getValue()*c.getValue();
+
+        double A = 1/(1+dot/c2);
+        double B = 1+(g*dot)/(c2*(1+g));
+        return fourVelocity(
+                A*(B*a.getV1()+b.getV1()/g),
+                A*(B*a.getV2()+b.getV2()/g),
+                A*(B*a.getV3()+b.getV3()/g));
     }
         
     
@@ -59,6 +59,10 @@ public class FourVelocity {
         double by = beta.getV2();
         double bz = beta.getV3();
         double bb = betaMag.getValue()*betaMag.getValue();
+        
+        if(bb == 0.0) {
+            return FourMatrix.diagonal(1, 1, 1, 1, gamma.getUnit());
+        }
         
         return new FourMatrix(
                 g,      -g*bx,          -g*by,          -g*bz, 

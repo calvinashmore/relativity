@@ -117,9 +117,16 @@ public class FourMatrix {
             return false;
         }
         final FourMatrix other = (FourMatrix) obj;
-        if (!Arrays.equals(this.v, other.v)) {
+        
+        double threshold = 0;
+        for(int i=0;i<v.length; i++)
+            threshold += Math.abs(this.v[i]-other.v[i]);
+        if(threshold >= FourVector.EPSILON)
             return false;
-        }
+        
+//        if (!Arrays.equals(this.v, other.v)) {
+//            return false;
+//        }
         if (!Objects.equals(this.unit, other.unit)) {
             return false;
         }

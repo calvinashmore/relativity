@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import static relativity.math.Constants.c;
+import relativity.math.FourPosition;
 import relativity.util.FourMatrix;
 import relativity.util.FourVector;
 import relativity.util.Unit;
@@ -42,6 +43,9 @@ public class FourVelocityTest {
         assertTrue(FourVelocity.add(a, a).threeNorm().getValue() < c.getValue());
     }
     
+    /**
+     * Einsteinian velocitiy addition is only commutative when velocities are parallel.
+     */
     @Test
     public void testAdditionCommutativity() {
         FourVector a = FourVelocity.fourVelocity(c.getValue()*.9, 0, 0);
@@ -61,5 +65,19 @@ public class FourVelocityTest {
         FourMatrix lB = FourVelocity.lorentzTransform(b);
         
         assertEquals(FourMatrix.multiply(lA, lB), FourMatrix.diagonal(1, 1, 1, 1, Unit.none));
+    }
+    
+    @Test
+    public void testLorentzDisplacementInvariant() {
+        FourVector a = FourPosition.fourPosition(0, c.getValue()*.9, 0, 0);
+        FourVector b = FourPosition.fourPosition(10, c.getValue()*.3, 5*u, 0);
+        
+        FourVector v = FourVelocity.fourVelocity(c.getValue()*.1, 0, 8*u);
+        FourMatrix lV = FourVelocity.lorentzTransform(v);
+        
+        FourVector a1 = FourMatrix.multiply(lV, a);
+        FourVector b1 = FourMatrix.multiply(lV, b);
+        
+        assertEquals(FourPosition.displacement(a, b), FourPosition.displacement(a1, b1));
     }
 }

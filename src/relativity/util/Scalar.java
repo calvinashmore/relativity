@@ -74,9 +74,11 @@ public class Scalar {
             return false;
         }
         final Scalar other = (Scalar) obj;
-        if (Double.doubleToLongBits(this.value) != Double.doubleToLongBits(other.value)) {
+//        if (Double.doubleToLongBits(this.value) != Double.doubleToLongBits(other.value)) {
+//            return false;
+//        }
+        if(Math.abs(this.value - other.value) >= FourVector.EPSILON)
             return false;
-        }
         if (!Objects.equals(this.unit, other.unit)) {
             return false;
         }

@@ -41,13 +41,4 @@ public class FourMomentum {
         Scalar metricProduct = FourMatrix.metricProduct(momentum, Constants.minkowskiMetric, momentum);
         return Scalar.divide(metricProduct.sqrt(), c);
     }
-    
-//    public static FourVector velocity(FourVector momentum) {
-//        if(!momentum.getUnit().equals(Unit.momentum))
-//            throw new MismatchedUnitException(Unit.momentum, momentum.getUnit());
-//        
-////        double gamma = momentum.getV0() / Constants.c.getValue();
-////        return new FourVector(gamma, momentum.getV1()/gamma, momentum.getV2()/gamma, momentum.getV3()/gamma, Unit.velocity);
-//    }
-    
 }

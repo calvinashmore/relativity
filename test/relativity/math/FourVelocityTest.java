@@ -68,16 +68,14 @@ public class FourVelocityTest {
     }
     
     @Test
-    public void testLorentzDisplacementInvariant() {
-        FourVector a = FourPosition.fourPosition(0, c.getValue()*.9, 0, 0);
-        FourVector b = FourPosition.fourPosition(10, c.getValue()*.3, 5*u, 0);
+    public void testLorentzS2Invariant() {
+        FourVector a = FourPosition.fourPosition(5, c.getValue()*.9, 0, 0);
         
         FourVector v = FourVelocity.fourVelocity(c.getValue()*.1, 0, 8*u);
         FourMatrix lV = FourVelocity.lorentzTransform(v);
         
         FourVector a1 = FourMatrix.multiply(lV, a);
-        FourVector b1 = FourMatrix.multiply(lV, b);
         
-        assertEquals(FourPosition.displacement(a, b), FourPosition.displacement(a1, b1));
+        assertEquals(FourPosition.s2(a), FourPosition.s2(a1));
     }
 }

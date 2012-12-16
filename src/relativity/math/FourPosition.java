@@ -30,12 +30,12 @@ public class FourPosition {
     }
     
     /**
-     * Returns the S^2 spacetime invariant of the position coordinate. This is invariant under Lorentz transformation.
+     * Returns the Minkowski S^2 spacetime invariant of the position coordinate. This is invariant under Lorentz transformation.
      * When we take the difference between two FourPositions, the sign of the s2 value represents whether the displacement is spacelike (s2>0), timelike (s2<0), or lightlike (s2==0)
      * @param a
      * @return 
      */
-    public static Scalar s2(FourVector a) {
+    public static Scalar minkowskiS2(FourVector a) {
         if(!a.getUnit().equals(Unit.distance))
             throw new MismatchedUnitException(a.getUnit(), Unit.distance);
         

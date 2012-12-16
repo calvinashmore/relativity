@@ -76,6 +76,6 @@ public class FourVelocityTest {
         
         FourVector a1 = FourMatrix.multiply(lV, a);
         
-        assertEquals(FourPosition.s2(a), FourPosition.s2(a1));
+        assertEquals(FourPosition.minkowskiS2(a), FourPosition.minkowskiS2(a1));
     }
 }

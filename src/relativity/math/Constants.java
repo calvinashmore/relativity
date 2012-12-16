@@ -17,6 +17,9 @@ public class Constants {
     // static util class
     private Constants() {}
     
+    /**
+     * Treating this as an arbitrary constant for now...
+     */
     public static Scalar c = new Scalar(10000, Unit.velocity);
     public static Scalar cSquared = Scalar.multiply(c, c);
     

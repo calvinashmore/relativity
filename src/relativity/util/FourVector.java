@@ -75,6 +75,10 @@ public class FourVector {
     public static FourVector multiply(FourVector x, Scalar y) {
         return new FourVector(x.v[0]*y.getValue(), x.v[1]*y.getValue(), x.v[2]*y.getValue(), x.v[3]*y.getValue(), Unit.multiply(x.unit, y.getUnit()));
     }
+    public static FourVector multiply(FourVector x, double y) {
+        return new FourVector(x.v[0]*y, x.v[1]*y, x.v[2]*y, x.v[3]*y, x.unit);
+    }
+
 
     private static void assertEqualUnits(FourVector x, FourVector y) {
         if (!x.unit.equals(y.unit)) {

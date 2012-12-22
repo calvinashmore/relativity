@@ -17,7 +17,7 @@ import relativity.util.*;
 public class PiecewiseWorldLine extends WorldLine {
     
     private List<Pair<Double, FourVector>> elements;
-
+    
     /**
      * Construct a finite piecewise world line along the specified elements.
      * Elements are expected to be in proper order: the interpolation value should be 0 for the first element and 1 for the last.

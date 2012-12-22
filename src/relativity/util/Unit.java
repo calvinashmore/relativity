@@ -24,6 +24,11 @@ public class Unit {
     public static final Unit momentum = multiply(velocity, mass);
     public static final Unit force = multiply(mass, acceleration);
     public static final Unit energy = multiply(force, distance);
+    
+    public static final Unit distancePolar = new Unit(UnitPrim.distance);
+    static {
+        distancePolar.polar = true;
+    }
 
     private enum UnitPrim {
 
@@ -39,6 +44,7 @@ public class Unit {
         }
     }
     private Map<UnitPrim, Integer> elements;
+    private boolean polar = false;
 
     private Unit(UnitPrim prim) {
         elements = Collections.singletonMap(prim, 1);
@@ -47,8 +53,13 @@ public class Unit {
     private Unit(Map<UnitPrim, Integer> elements) {
         this.elements = elements;
     }
+
+    public boolean isPolar() {
+        return polar;
+    }
     
     public static Unit multiply(Unit u1, Unit u2) {
+        if(u1.isPolar() || u2.isPolar()) throw new MismatchedUnitException("can't multiply polar coords");
         Map<UnitPrim, Integer> elements = new HashMap<>(u1.elements);
         for (Map.Entry<UnitPrim, Integer> entry : u2.elements.entrySet()) {
             UnitPrim key = entry.getKey();
@@ -73,6 +84,7 @@ public class Unit {
     }
     
     public Unit invert() {
+        if(isPolar()) throw new MismatchedUnitException("can't invert polar coords");
         Map<UnitPrim, Integer> newElements = new HashMap<>();
         for (Map.Entry<UnitPrim, Integer> entry : this.elements.entrySet()) {
             newElements.put(entry.getKey(), -entry.getValue());
@@ -97,6 +109,8 @@ public class Unit {
 
     @Override
     public String toString() {
+        
+        if(isPolar()) return "polar";
         
         StringBuilder s = new StringBuilder();
         boolean once = false;
@@ -126,13 +140,18 @@ public class Unit {
         if (!Objects.equals(this.elements, other.elements)) {
             return false;
         }
+        if (this.polar != other.polar) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.elements);
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.elements);
+        hash = 59 * hash + (this.polar ? 1 : 0);
         return hash;
     }
+    
 }

@@ -12,5 +12,11 @@ import relativity.util.Scalar;
  */
 public interface Integrator {
     
+    /**
+     * Should be able to handle polar and non-polar forms.
+     * @param line
+     * @param metric
+     * @return 
+     */
     public Scalar integrate(WorldLine line, Metric metric);
 }

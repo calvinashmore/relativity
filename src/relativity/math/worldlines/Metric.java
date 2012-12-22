@@ -13,6 +13,8 @@ import relativity.util.FourVector;
  */
 public interface Metric {
     
+    public boolean isPolar();
+    
     /**
      * Takes a point in timespace and returns the metic tensor at that point.
      * g = metricTensor(x);

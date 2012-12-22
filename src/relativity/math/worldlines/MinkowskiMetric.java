@@ -15,6 +15,11 @@ import relativity.util.FourVector;
 public class MinkowskiMetric implements Metric {
 
     @Override
+    public boolean isPolar() {
+        return false;
+    }
+    
+    @Override
     public FourMatrix metricTensor(FourVector x) {
         return Constants.minkowskiMetric;
     }

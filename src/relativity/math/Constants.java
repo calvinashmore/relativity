@@ -21,6 +21,7 @@ public class Constants {
      * Treating this as an arbitrary constant for now...
      */
     public static Scalar c = new Scalar(10000, Unit.velocity);
+    public static Scalar G = new Scalar(1e-5, Unit.divide(Unit.multiply(Unit.multiply(Unit.velocity, Unit.velocity),Unit.distance),Unit.mass));
     public static Scalar cSquared = Scalar.multiply(c, c);
     
     public static FourMatrix minkowskiMetric = FourMatrix.diagonal(-1, 1, 1, 1, Unit.none);

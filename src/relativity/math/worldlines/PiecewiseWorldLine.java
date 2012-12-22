@@ -19,7 +19,7 @@ public class PiecewiseWorldLine extends WorldLine {
     private List<Pair<Double, FourVector>> elements;
     
     /**
-     * Construct a finite piecewise world line along the specified elements.
+     * Construct a finite piecewise world line along the specified elements in euclidian coordinates.
      * Elements are expected to be in proper order: the interpolation value should be 0 for the first element and 1 for the last.
      * Vector components must have units of distance.
      * If any segment represents a faster than light interval, a FTLException will be thrown.
